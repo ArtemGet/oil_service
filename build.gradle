@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'org.example'
@@ -9,7 +10,28 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClassName = "com/artemget/oil_service/Application"
+}
+
 dependencies {
+    def vertxVersion = '4.0.3'
+    def guiceVersion = '5.0.1'
+    def apachePOIVersion = '5.0.0'
+    def jacksonVersion = '2.12.3'
+
+    implementation group: 'com.google.inject', name: 'guice', version: guiceVersion
+    implementation group: 'io.vertx', name: 'vertx-core', version: vertxVersion
+    implementation group: 'io.vertx', name: 'vertx-web', version: vertxVersion
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: apachePOIVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: jacksonVersion
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
