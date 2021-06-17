@@ -1,11 +1,11 @@
 # Microservice CodeStyle rules
 
-##Development process:
+## Development process:   
 In this project all development allowed only in feature branches. When development done maintainer supposed to create 
 pull-request to master(or not supposed to if there are not any other maintainers in project) and squash all feature commits to one.
 
-##Branching process:
-###Branch format:
+## Branching process:     
+### Branch format:    
 ```
 [branch_type]/[Service_Name][task_number]-[task_desription]
 ```
@@ -25,12 +25,12 @@ hotfix/OS43-make-prod-great-again
 
 PS:This staff would be actual only with CI/CD, but anyway, I decided to integrate this standard in my project.
 
-##Commits:
-###Commit format:
+## Commits:    
+### Commit format:    
 ```
 [[Service_name]-[task_number]] [commit_description]
 ```
-###Commit example:
+### Commit example:    
 ```
 [OS-42] add meaning service and life services
 ```
