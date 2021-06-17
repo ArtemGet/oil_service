@@ -1,0 +1,20 @@
+##Gradle template
+.gradle
+/build/
+
+##Avoid ignoring Gradle wrapper jar file
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+##Idea
+.idea
+*iws
+*iml
+*ipr
+
+##Avoid Vertx auto-generated config
+#config
+
+
+out/
+.DS_Store
