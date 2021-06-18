@@ -29,6 +29,9 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: jacksonVersion
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+    implementation group: 'org.jdbi', name: 'jdbi3-core', version: '3.20.1'
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
 
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 
