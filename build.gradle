@@ -32,6 +32,7 @@ dependencies {
     implementation group: 'org.jdbi', name: 'jdbi3-core', version: '3.20.1'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
+    implementation group: 'io.vertx', name: 'vertx-web', version: '4.1.0'
 
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 

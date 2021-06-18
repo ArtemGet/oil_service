@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface OilDataSource {
     List<Oil> getAll();
+
     List<Oil> getLimited();
+
     //change later
     Oil getBySomeParam(Oil oil);
 }

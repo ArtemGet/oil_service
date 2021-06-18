@@ -23,10 +23,6 @@ public class ApplicationDI {
         return new DIBuilder();
     }
 
-    public void startApp() {
-
-    }
-
     @Slf4j
     public static class DIBuilder {
         private List<Module> modules;
