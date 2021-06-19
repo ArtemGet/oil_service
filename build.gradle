@@ -33,10 +33,13 @@ dependencies {
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
     implementation group: 'io.vertx', name: 'vertx-web', version: '4.1.0'
+    implementation 'io.vertx:vertx-web-client:4.1.0'
 
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.11.1'
+
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 

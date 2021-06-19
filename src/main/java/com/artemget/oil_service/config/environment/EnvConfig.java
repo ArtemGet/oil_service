@@ -9,22 +9,22 @@ public class EnvConfig {
 
     public static final Path ENV_CONFIG_YAML = Path.of("src/main/resources/config/", "config." + ENVIRONMENT + ".yaml");
 
-    private static String getEnvironment() {
-        var env = System.getenv("ENV");
+    public static String getEnvironment() {
+        var env = System.getProperty("ENV");
         try {
-            EnvVariables.valueOf(env.toUpperCase());
+            EnvProperties.valueOf(env.toUpperCase());
         } catch (Exception e) {
-            return EnvVariables.LOCAL_DEV.toString().toLowerCase(Locale.ROOT);
+            return EnvProperties.LOCAL_DEV.toString().toLowerCase(Locale.ROOT);
         }
         return env;
     }
 
-    private static String getDataSource() {
-        var env = System.getenv("DATASOURCE");
+    public static String getDataSource() {
+        var env = System.getProperty("DATASOURCE");
         try {
-            EnvVariables.valueOf(env.toUpperCase(Locale.ROOT));
+            EnvProperties.valueOf(env.toUpperCase(Locale.ROOT));
         } catch (Exception e) {
-            return EnvVariables.MYSQL.getEnvVariable();
+            return EnvProperties.MYSQL.getEnvProperty();
         }
         return env;
     }

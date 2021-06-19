@@ -11,8 +11,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.jdbi.v3.core.Jdbi;
 
-import static com.artemget.oil_service.config.environment.EnvVariables.POSTGRES;
-
+import static com.artemget.oil_service.config.environment.EnvProperties.POSTGRES;
 
 public class DatasourceModule extends AbstractModule {
 
@@ -26,7 +25,7 @@ public class DatasourceModule extends AbstractModule {
     @Provides
     @Singleton
     public Jdbi provideJdbiInstance(ApplicationConfig appConfig) {
-        if (POSTGRES.getEnvVariable().equals(EnvConfig.DATA_SOURCE)) {
+        if (POSTGRES.getEnvProperty().equals(EnvConfig.DATA_SOURCE)) {
             var hikariConfig = new HikariConfig();
             hikariConfig.setJdbcUrl(appConfig.getSqlConfigMap().get("postgres").getUrl());
             hikariConfig.setPassword(appConfig.getSqlConfigMap().get("postgres").getPassword());
