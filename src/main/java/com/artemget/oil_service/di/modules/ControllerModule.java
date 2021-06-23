@@ -1,6 +1,7 @@
 package com.artemget.oil_service.di.modules;
 
 import com.artemget.oil_service.controller.LoginHandler;
+import com.artemget.oil_service.executor.ExecutorProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;

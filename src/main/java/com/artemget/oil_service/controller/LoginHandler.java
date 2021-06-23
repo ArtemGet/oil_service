@@ -1,6 +1,7 @@
 package com.artemget.oil_service.controller;
 
 import com.artemget.oil_service.exception.ParameterValidationException;
+import com.artemget.oil_service.executor.ExecutorProvider;
 import com.artemget.oil_service.model.User;
 import com.artemget.oil_service.service.UserService;
 import com.artemget.oil_service.validation.HttpValidator;
@@ -13,20 +14,25 @@ import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CompletableFuture;
+
 @Slf4j
 @Singleton
 public class LoginHandler implements Handler<RoutingContext> {
     private final JWTAuth jwtAuthProvider;
     private final HttpValidator loginValidator;
     private final UserService userService;
+    private final ExecutorProvider mainProvider;
 
     @Inject
     public LoginHandler(JWTAuth jwtAuthProvider,
                         @Named("login_validator") HttpValidator loginValidator,
-                        UserService userService) {
+                        UserService userService,
+                        ExecutorProvider mainProvider) {
         this.jwtAuthProvider = jwtAuthProvider;
         this.loginValidator = loginValidator;
         this.userService = userService;
+        this.mainProvider = mainProvider;
     }
 
     @Override
@@ -44,16 +50,19 @@ public class LoginHandler implements Handler<RoutingContext> {
                 .password(body.getString("password"))
                 .email(body.getString("email"))
                 .build();
-        try {
-            var isAdmin = userService.isAdmin(user);
-            event.response()
-                    .end(jwtAuthProvider
-                            .generateToken(new JsonObject()
-                                    .put("name", user.getName())
-                                    .put("admin", isAdmin)));
-        } catch (Exception e) {
-            event.fail(404);
-            log.error("failed to check user role/no such user", e);
-        }
+
+        CompletableFuture
+                .supplyAsync(() -> userService.isAdmin(user), mainProvider.getExecutorService())
+                .thenAccept((isAdmin) ->
+                        event.response()
+                                .end(jwtAuthProvider
+                                        .generateToken(new JsonObject()
+                                                .put("name", user.getName())
+                                                .put("admin", isAdmin))))
+                .exceptionally(throwable -> {
+                    event.fail(404);
+                    log.error("failed to check user role/no such user", throwable);
+                    return null;
+                });
     }
 }

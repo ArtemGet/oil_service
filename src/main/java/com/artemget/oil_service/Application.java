@@ -16,7 +16,8 @@ public class Application {
                         new HttpModule(),
                         new ControllerModule(),
                         new ValidatorModule(),
-                        new AuthModule())
+                        new AuthModule(),
+                        new ExecutorModule())
                 .build();
 
         Host host = applicationContext.getInjector().getInstance(Host.class);
