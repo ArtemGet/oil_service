@@ -2,6 +2,8 @@ package com.artemget.oil_service.di.modules;
 
 import com.artemget.oil_service.repository.OilRepository;
 import com.artemget.oil_service.repository.OilRepositoryImpl;
+import com.artemget.oil_service.repository.UserRepository;
+import com.artemget.oil_service.repository.UserRepositoryImpl;
 import com.google.inject.AbstractModule;
 
 public class RepositoryModule extends AbstractModule {
@@ -9,6 +11,10 @@ public class RepositoryModule extends AbstractModule {
     public void configure() {
         bind(OilRepository.class)
                 .to(OilRepositoryImpl.class)
+                .asEagerSingleton();
+
+        bind(UserRepository.class)
+                .to(UserRepositoryImpl.class)
                 .asEagerSingleton();
     }
 }
