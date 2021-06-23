@@ -7,7 +7,7 @@ __Mainly used for app configuration__
 ```
 -DENV={env}
 This property will point out the environment in which app is started.
-Possible variants: "local_dev"/"prod".
+Possible variants: "local_dev"/"production".
 If variable not set - local_dev will be set by default.
 ```
 
