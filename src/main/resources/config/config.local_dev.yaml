@@ -1,5 +1,5 @@
 postgres:
-  url: "jdbc:postgresql://localhost:5432/"
+  url: "jdbc:postgresql://localhost:5432/oil_db"
   user: "postgres"
   password: "postgres"
   pool: 5

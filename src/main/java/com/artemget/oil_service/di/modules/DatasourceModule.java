@@ -4,6 +4,8 @@ import com.artemget.oil_service.config.ApplicationConfig;
 import com.artemget.oil_service.config.environment.EnvConfig;
 import com.artemget.oil_service.datasource.OilDataSource;
 import com.artemget.oil_service.datasource.SQLOilSource;
+import com.artemget.oil_service.datasource.SQLUserSource;
+import com.artemget.oil_service.datasource.UserDataSource;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -20,6 +22,10 @@ public class DatasourceModule extends AbstractModule {
         bind(OilDataSource.class)
                 .to(SQLOilSource.class)
                 .asEagerSingleton();
+
+        bind(UserDataSource.class)
+                .to(SQLUserSource.class)
+                .asEagerSingleton();
     }
 
     @Provides
@@ -31,6 +37,7 @@ public class DatasourceModule extends AbstractModule {
             hikariConfig.setPassword(appConfig.getSqlConfigMap().get("postgres").getPassword());
             hikariConfig.setUsername(appConfig.getSqlConfigMap().get("postgres").getUser());
             hikariConfig.setMaximumPoolSize(appConfig.getSqlConfigMap().get("postgres").getPool());
+            hikariConfig.setMinimumIdle(2);
             return Jdbi.create(new HikariDataSource(hikariConfig));
         }
         var hikariConfig = new HikariConfig();
@@ -38,6 +45,7 @@ public class DatasourceModule extends AbstractModule {
         hikariConfig.setPassword(appConfig.getSqlConfigMap().get("mySQL").getPassword());
         hikariConfig.setUsername(appConfig.getSqlConfigMap().get("mySQL").getUser());
         hikariConfig.setMaximumPoolSize(appConfig.getSqlConfigMap().get("mySQL").getPool());
+        hikariConfig.setMinimumIdle(2);
         return Jdbi.create(new HikariDataSource(hikariConfig));
     }
 }

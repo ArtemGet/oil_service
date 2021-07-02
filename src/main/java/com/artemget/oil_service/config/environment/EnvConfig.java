@@ -20,12 +20,24 @@ public class EnvConfig {
     }
 
     public static String getDataSource() {
-        var env = System.getProperty("DATASOURCE");
+        var env = System.getProperty("dataSource");
         try {
             EnvProperties.valueOf(env.toUpperCase(Locale.ROOT));
         } catch (Exception e) {
             return EnvProperties.MYSQL.getEnvProperty();
         }
         return env;
+    }
+
+    public static String getKeyStorePath() {
+        return System.getProperty("keyStorePath");
+    }
+
+    public static String getSecretBuffer() {
+        return System.getProperty("secretBuffer");
+    }
+
+    public static String getKeyStorePassword() {
+        return System.getProperty("keyStorePassword");
     }
 }
