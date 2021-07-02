@@ -1,6 +1,6 @@
 # SQL schemes
 
-### Database scheme
+### Database creation
 
 ```postgresql
 create database oil_db
