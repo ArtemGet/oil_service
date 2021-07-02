@@ -26,7 +26,12 @@ public class SQLUserSource implements UserDataSource {
 
     @Override
     public void addUser(User user) {
-
+        jdbi.withHandle(handle ->
+                handle.createUpdate("INSERT INTO users (email, name, password) VALUES (?, ?, ?)")
+                        .bind(0, user.getEmail())
+                        .bind(1, user.getName())
+                        .bind(2, user.getPassword())
+                        .execute());
     }
 
     @Override

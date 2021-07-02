@@ -5,6 +5,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import io.vertx.core.Vertx;
+import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.KeyStoreOptions;
 import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
@@ -20,7 +21,9 @@ public class AuthModule extends AbstractModule {
                         .setPassword(applicationConfig.getTokenConfig().getKeyStorePassword()))
                 .addPubSecKey(new PubSecKeyOptions()
                         .setAlgorithm("HS256")
-                        .setBuffer(applicationConfig.getTokenConfig().getSecretBuffer()));
+                        .setBuffer(applicationConfig.getTokenConfig().getSecretBuffer()))
+                .setJWTOptions(new JWTOptions()
+                        .setExpiresInMinutes(1440));
         return JWTAuth.create(vertx, authConfig);
     }
 }

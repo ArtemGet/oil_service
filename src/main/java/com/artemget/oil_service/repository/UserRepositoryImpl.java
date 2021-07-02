@@ -21,6 +21,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void addUser(User user) {
-
+        userDataSource.addUser(user);
     }
 }

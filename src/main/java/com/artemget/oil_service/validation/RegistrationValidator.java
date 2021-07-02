@@ -7,13 +7,14 @@ import java.util.regex.Matcher;
 
 import static com.artemget.oil_service.utils.PatternUtil.EMAIL_PATTERN;
 
-public class LoginValidator implements HttpValidator {
+public class RegistrationValidator implements HttpValidator {
     @Override
     public void setEvent(RoutingContext event) {
         var body = event.getBodyAsJson();
         Preconditions.checkArgument(!body.getString("name").isEmpty());
         Preconditions.checkArgument(!body.getString("password").isEmpty());
         Preconditions.checkArgument(!body.getString("email").isEmpty());
+        Preconditions.checkArgument(event.getBodyAsJson().fieldNames().size() == 3);
 
         Matcher matcher = EMAIL_PATTERN.matcher(body.getString("email"));
         Preconditions.checkArgument(matcher.find());

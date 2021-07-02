@@ -1,8 +1,10 @@
 package com.artemget.oil_service.model;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+@EqualsAndHashCode
 @Builder
 @Getter
 public class User {

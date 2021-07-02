@@ -10,7 +10,6 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +18,19 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Singleton
-public class LoginHandler implements Handler<RoutingContext> {
+public class RegistrationHandler implements Handler<RoutingContext> {
     private final JWTAuth jwtAuthProvider;
-    private final HttpValidator loginValidator;
+    private final HttpValidator registrationValidator;
     private final UserService userService;
     private final ExecutorProvider mainProvider;
 
     @Inject
-    public LoginHandler(JWTAuth jwtAuthProvider,
-                        @Named("login_validator") HttpValidator loginValidator,
-                        UserService userService,
-                        ExecutorProvider mainProvider) {
+    public RegistrationHandler(JWTAuth jwtAuthProvider,
+                               @Named("registration_validator") HttpValidator registrationValidator,
+                               UserService userService,
+                               ExecutorProvider mainProvider) {
         this.jwtAuthProvider = jwtAuthProvider;
-        this.loginValidator = loginValidator;
+        this.registrationValidator = registrationValidator;
         this.userService = userService;
         this.mainProvider = mainProvider;
     }
@@ -39,21 +38,24 @@ public class LoginHandler implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext event) {
         try {
-            loginValidator.validate(event);
+            registrationValidator.validate(event);
         } catch (ParameterValidationException e) {
             event.fail(400);
-            log.error("Error: login bad request", e);
+            log.error("Error: registration bad request", e);
             return;
         }
         var body = event.getBodyAsJson();
         var user = User.builder()
                 .name(body.getString("name"))
                 .password(body.getString("password"))
+                .email(body.getString("email"))
                 .build();
 
-        CompletableFuture
-                .supplyAsync(() -> userService.isAdmin(user), mainProvider.getExecutorService())
-                .thenAccept((isAdmin) ->
+        CompletableFuture.runAsync(() -> {
+                    userService.registerUser(user);
+                },
+                mainProvider.getExecutorService())
+                .thenRun(() ->
                         event.response()
                                 .setStatusCode(200)
                                 .putHeader("content-type", "application/json; charset=utf-8")
@@ -61,11 +63,11 @@ public class LoginHandler implements Handler<RoutingContext> {
                                         .put("token", jwtAuthProvider
                                                 .generateToken(new JsonObject()
                                                         .put("name", user.getName())
-                                                        .put("admin", isAdmin)))
+                                                        .put("admin", false)))
                                         .encodePrettily()))
-                .exceptionally(throwable -> {
-                    event.fail(404);
-                    log.error("failed to check user role/no such user", throwable);
+                .exceptionally((t) -> {
+                    event.fail(409);
+                    log.error("User registration error", t);
                     return null;
                 });
     }

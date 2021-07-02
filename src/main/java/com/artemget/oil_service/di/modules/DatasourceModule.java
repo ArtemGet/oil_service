@@ -37,6 +37,7 @@ public class DatasourceModule extends AbstractModule {
             hikariConfig.setPassword(appConfig.getSqlConfigMap().get("postgres").getPassword());
             hikariConfig.setUsername(appConfig.getSqlConfigMap().get("postgres").getUser());
             hikariConfig.setMaximumPoolSize(appConfig.getSqlConfigMap().get("postgres").getPool());
+            hikariConfig.setMinimumIdle(2);
             return Jdbi.create(new HikariDataSource(hikariConfig));
         }
         var hikariConfig = new HikariConfig();
@@ -44,6 +45,7 @@ public class DatasourceModule extends AbstractModule {
         hikariConfig.setPassword(appConfig.getSqlConfigMap().get("mySQL").getPassword());
         hikariConfig.setUsername(appConfig.getSqlConfigMap().get("mySQL").getUser());
         hikariConfig.setMaximumPoolSize(appConfig.getSqlConfigMap().get("mySQL").getPool());
+        hikariConfig.setMinimumIdle(2);
         return Jdbi.create(new HikariDataSource(hikariConfig));
     }
 }
