@@ -26,7 +26,7 @@ public class LoginControllerTest {
     public void shouldSendTokenOnSuccess() {
         User correctAdmin = TestUserProvider.getCorrectAdmin();
 
-        when(userDataSource.getUserByNameAndPassword(eq("admin"), eq("123")))
+        when(userDataSource.selectUserByNameAndPassword(eq("admin"), eq("123")))
                 .thenReturn(correctAdmin);
 
         var response = client.request(HttpMethod.GET, 8080, "localhost", "/login")
@@ -48,7 +48,7 @@ public class LoginControllerTest {
 
     @Test
     public void shouldSendNotFoundIfUserNotExists() {
-        when(userDataSource.getUserByNameAndPassword(eq("unregisteredUser"), eq("123")))
+        when(userDataSource.selectUserByNameAndPassword(eq("unregisteredUser"), eq("123")))
                 .thenThrow(IllegalStateException.class);
 
         var response = client.request(HttpMethod.GET, 8080, "localhost", "/login")

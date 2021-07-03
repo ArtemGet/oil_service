@@ -45,7 +45,7 @@ public class RegistrationControllerTest {
     public void shouldSendConflictOnAlreadyExistingUser() {
         doThrow(IllegalStateException.class)
                 .when(userDataSource)
-                .addUser(eq(User.builder()
+                .insertUser(eq(User.builder()
                         .name("takenUserName")
                         .password("123")
                         .email("admin@admin.com")

@@ -4,9 +4,9 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-@EqualsAndHashCode
 @Builder
 @Getter
+@EqualsAndHashCode
 public class User {
     private final String name;
     private final String password;

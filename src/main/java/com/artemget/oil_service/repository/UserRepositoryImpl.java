@@ -16,11 +16,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUser(User user) {
-        return userDataSource.getUserByNameAndPassword(user.getName(), user.getPassword());
+        return userDataSource.selectUserByNameAndPassword(user.getName(), user.getPassword());
     }
 
     @Override
     public void addUser(User user) {
-        userDataSource.addUser(user);
+        userDataSource.insertUser(user);
     }
 }

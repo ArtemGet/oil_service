@@ -5,9 +5,9 @@ import com.artemget.oil_service.model.User;
 import java.util.List;
 
 public interface UserDataSource {
-    void addUser(User user);
+    void insertUser(User user);
 
-    User getUserByNameAndPassword(String name, String password);
+    User selectUserByNameAndPassword(String name, String password);
 
-    List<User> getUsers();
+    List<User> selectAllUsers();
 }

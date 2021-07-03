@@ -25,7 +25,7 @@ public class SQLUserSource implements UserDataSource {
     }
 
     @Override
-    public void addUser(User user) {
+    public void insertUser(User user) {
         jdbi.withHandle(handle ->
                 handle.createUpdate("INSERT INTO users (email, name, password) VALUES (?, ?, ?)")
                         .bind(0, user.getEmail())
@@ -35,7 +35,7 @@ public class SQLUserSource implements UserDataSource {
     }
 
     @Override
-    public User getUserByNameAndPassword(String name, String password) {
+    public User selectUserByNameAndPassword(String name, String password) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM users WHERE name = ? AND password = ?")
                         .bind(0, name)
@@ -46,7 +46,7 @@ public class SQLUserSource implements UserDataSource {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> selectAllUsers() {
         return null;
     }
 }
