@@ -1,5 +1,6 @@
 package com.artemget.oil_service.di.modules;
 
+import com.artemget.oil_service.controller.UploadHandler;
 import com.artemget.oil_service.controller.LoginHandler;
 import com.artemget.oil_service.controller.RegistrationHandler;
 import com.google.inject.AbstractModule;
@@ -18,13 +19,16 @@ public class ControllerModule extends AbstractModule {
     public Router setUpHandlers(Vertx vertx,
                                 JWTAuth jwtAuthProvider,
                                 LoginHandler loginHandler,
-                                RegistrationHandler registrationHandler) {
+                                RegistrationHandler registrationHandler,
+                                UploadHandler uploadHandler) {
         Router router = Router.router(vertx);
-        router.route().handler(BodyHandler.create());
+        router.route().handler(BodyHandler.create().setUploadsDirectory("src/resources/").setDeleteUploadedFilesOnEnd(true));
         router.route("/api/resources/*").handler(JWTAuthHandler.create(jwtAuthProvider));
 
         router.route(HttpMethod.GET, "/login").handler(loginHandler);
         router.route(HttpMethod.POST, "/register").handler(registrationHandler);
+
+        router.route(HttpMethod.POST, "/api/resources/upload").handler(uploadHandler);
         return router;
     }
 }

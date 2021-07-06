@@ -19,13 +19,16 @@ public class SQLRecordDataSource implements RecordDataSource {
                 handle.createUpdate("INSERT INTO oil_records (user_name) VALUES (?)")
                         .bind(0, adminName)
                         .executeAndReturnGeneratedKeys("record_id")
-        ).collectInto(Integer.class);
+                        .mapTo(Integer.class)
+                        .first()
+        );
     }
 
     @Override
     public void deleteRecordById(int recordId) {
         jdbi.withHandle(handle ->
                 handle.createUpdate("DELETE FROM oil_records WHERE record_id = ?")
-                        .bind(0, recordId));
+                        .bind(0, recordId)
+                        .execute());
     }
 }

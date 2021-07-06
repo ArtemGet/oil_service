@@ -37,11 +37,12 @@ public class SQLOilSource implements OilDataSource {
                 batch.bind(0, oil.getOutputPlace())
                         .bind(1, oil.getName())
                         .bind(2, oil.getDensity20())
-                .bind(3, oil.getDensity50())
-                .bind(4, oil.getViscosity20())
-                .bind(5, oil.getViscosity50())
-                .bind(6, oil.getHK_350())
-                .bind(7, recordId);
+                        .bind(3, oil.getDensity50())
+                        .bind(4, oil.getViscosity20())
+                        .bind(5, oil.getViscosity50())
+                        .bind(6, oil.getHk350())
+                        .bind(7, recordId)
+                        .add();
             }
             batch.execute();
             return null;

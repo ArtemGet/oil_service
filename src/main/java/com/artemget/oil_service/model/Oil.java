@@ -15,5 +15,5 @@ public class Oil {
     private final double density50;
     private final double viscosity20;
     private final double viscosity50;
-    private final double HK_350;
+    private final double hk350;
 }
