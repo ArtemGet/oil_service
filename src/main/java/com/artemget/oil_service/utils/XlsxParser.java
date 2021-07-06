@@ -73,6 +73,10 @@ public class XlsxParser {
     //TODO check cell type
     private static Oil collectRowData(Row row, Map<OilParams, Integer> places) {
         try {
+            if (row.getCell(places.get(OilParams.NAME)).getStringCellValue().isEmpty() &&
+                    row.getCell(places.get(OilParams.OUTPUT_FIELD)).getStringCellValue().isEmpty()) {
+                return null;
+            }
             return Oil.builder()
                     .name(new String(row.getCell(places.get(OilParams.NAME)).getStringCellValue().getBytes(StandardCharsets.UTF_8)))
                     .outputPlace(new String(row.getCell(places.get(OilParams.OUTPUT_FIELD)).getStringCellValue().getBytes(StandardCharsets.UTF_8)))

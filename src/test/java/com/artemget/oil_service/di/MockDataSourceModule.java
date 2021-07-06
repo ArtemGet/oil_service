@@ -1,9 +1,6 @@
 package com.artemget.oil_service.di;
 
-import com.artemget.oil_service.datasource.OilDataSource;
-import com.artemget.oil_service.datasource.SQLOilSource;
-import com.artemget.oil_service.datasource.SQLUserSource;
-import com.artemget.oil_service.datasource.UserDataSource;
+import com.artemget.oil_service.datasource.*;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -21,5 +18,11 @@ public class MockDataSourceModule extends AbstractModule {
     @Singleton
     public UserDataSource provideMockUserDataSource() {
         return mock(SQLUserSource.class);
+    }
+
+    @Provides
+    @Singleton
+    public RecordDataSource provideMockRecordDataSource() {
+        return mock(SQLRecordDataSource.class);
     }
 }

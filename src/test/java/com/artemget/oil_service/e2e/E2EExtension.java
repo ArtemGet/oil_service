@@ -3,11 +3,13 @@ package com.artemget.oil_service.e2e;
 import com.artemget.oil_service.Host;
 import com.artemget.oil_service.config.ApplicationConfig;
 import com.artemget.oil_service.datasource.OilDataSource;
+import com.artemget.oil_service.datasource.RecordDataSource;
 import com.artemget.oil_service.datasource.UserDataSource;
 import com.artemget.oil_service.di.ApplicationDI;
 import com.artemget.oil_service.di.MockConfigModule;
 import com.artemget.oil_service.di.MockDataSourceModule;
 import com.artemget.oil_service.di.modules.*;
+import com.artemget.oil_service.model.User;
 import com.google.inject.Injector;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerOptions;
@@ -19,12 +21,17 @@ import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
 public class E2EExtension implements BeforeAllCallback, AfterAllCallback {
     public WebClient client;
     //mock implementation of OilDataSource
     public OilDataSource mockOilDataSource;
     //mock implementation of UserDataSource
     public UserDataSource mockUserDataSource;
+    //mock impl
+    public RecordDataSource mockRecordDataSource;
     public JWTAuth mockedJWTAuth;
     private Host host;
 
@@ -54,6 +61,7 @@ public class E2EExtension implements BeforeAllCallback, AfterAllCallback {
         this.mockUserDataSource = injector.getInstance(UserDataSource.class);
         this.mockOilDataSource = injector.getInstance(OilDataSource.class);
         this.mockedJWTAuth = injector.getInstance(JWTAuth.class);
+        this.mockRecordDataSource = injector.getInstance(RecordDataSource.class);
 
         setUpHttpClient(injector.getInstance(Vertx.class));
     }
@@ -71,5 +79,10 @@ public class E2EExtension implements BeforeAllCallback, AfterAllCallback {
                 .setTrustAll(true);
 
         client = WebClient.create(vertx, secureOptions);
+    }
+
+    public void loginUser(User user) {
+        when(mockUserDataSource.selectUserByNameAndPassword(eq(user.getName()), eq(user.getPassword())))
+                .thenReturn(user);
     }
 }

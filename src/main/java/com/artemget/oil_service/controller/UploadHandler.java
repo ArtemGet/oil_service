@@ -45,9 +45,17 @@ public class UploadHandler implements Handler<RoutingContext> {
             event.fail(400);
             return;
         }
+
         var user = User.builder()
                 .name(event.user().get("name"))
+                .isAdmin(event.user().get("admin"))
                 .build();
+
+        if (!user.isAdmin()) {
+            log.error("Admin roots required!");
+            event.fail(403);
+            return;
+        }
 
         CompletableFuture.supplyAsync(() -> getAndParseData(event), executorProvider.getExecutorService())
                 .thenApply((oilList) -> store(oilList, user))
