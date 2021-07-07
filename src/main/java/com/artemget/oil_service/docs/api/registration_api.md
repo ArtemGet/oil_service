@@ -5,15 +5,25 @@
 __Request format:__
 
 ```
-{domain}:{port}/register
+POST [domain]:[port]/users/user
+Content-Type: application/json
+Accept: application/json
 ```
+
+__Request parameter description:__
+
+| Field name    | Field value   |
+|:-------------:|:-------------:|
+| name          | string        |
+| password      | string        |
+| email         | string        |
 
 __Request example:__
 
 ```
-https://127.0.0.1:8080/register 
-
-body:
+POST https://127.0.0.1:8080/users/user
+Content-Type: application/json
+Accept: application/json
 {
     "name": "user",
     "password": "123",
@@ -23,7 +33,13 @@ body:
 
 ## Response
 
-__Response format:__
+__Request parameter description:__
+
+| Field name    | Field value   |
+|:-------------:|:-------------:|
+| token         | string        |
+
+__Response example:__
 
 ```json
 {
@@ -31,12 +47,11 @@ __Response format:__
 }
 ```
 
-## Errors
+## Status codes
 
-__Possible Errors__
-
-```
-400 - empty/null registration fields
-
-409 - user with such nickname/email alredy exists
-```
+| Status code | Caused by                                    |
+|:-----------:|----------------------------------------------|
+| 201         | user registered successfully                 |
+| 400         | empty/null registration fields               |
+| 409         | user with such nickname/email already exists |
+| 500         | internal                                     |

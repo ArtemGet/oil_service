@@ -23,7 +23,7 @@ public class RegistrationControllerTest {
 
     @Test
     public void shouldSendTokenOnSuccess() {
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/register")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/users/user")
                 .sendJson(new JsonObject()
                         .put("name", "admin")
                         .put("password", "123")
@@ -31,7 +31,7 @@ public class RegistrationControllerTest {
 
         while (!response.isComplete()) {
         }
-        assertEquals(200, response.result().statusCode());
+        assertEquals(201, response.result().statusCode());
 
         var userAuth = jwtAuth.authenticate(new JsonObject()
                 .put("token",
@@ -51,7 +51,7 @@ public class RegistrationControllerTest {
                         .email("admin@admin.com")
                         .build()));
 
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/register")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/users/user")
                 .sendJson(new JsonObject()
                         .put("name", "takenUserName")
                         .put("password", "123")
@@ -63,7 +63,7 @@ public class RegistrationControllerTest {
 
     @Test
     public void shouldSendBadRequestOnFailingValidation() {
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/register")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/users/user")
                 .sendJson(new JsonObject()
                         .put("name", "admin")
                         .put("password", "123")

@@ -57,7 +57,7 @@ public class RegistrationHandler implements Handler<RoutingContext> {
                 mainProvider.getExecutorService())
                 .thenRun(() ->
                         event.response()
-                                .setStatusCode(200)
+                                .setStatusCode(201)
                                 .putHeader("content-type", "application/json; charset=utf-8")
                                 .end(new JsonObject()
                                         .put("token", jwtAuthProvider

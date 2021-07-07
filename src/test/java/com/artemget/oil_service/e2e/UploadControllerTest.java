@@ -43,7 +43,7 @@ public class UploadControllerTest {
                         "file/xlsx");
 
         String token = login(TestUserProvider.getCorrectUser());
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/resources/upload")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/handbooks/handbook")
                 .putHeader("Authorization", "Bearer " + "someInvalidToken")
                 .putHeader("Content-Type", "multipart/form-data")
                 .putHeader("Connection", "keep-alive")
@@ -64,7 +64,7 @@ public class UploadControllerTest {
                         "file/xlsx");
 
         String token = login(TestUserProvider.getCorrectUser());
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/resources/upload")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/handbooks/handbook")
                 .putHeader("Authorization", "Bearer " + token)
                 .putHeader("Content-Type", "multipart/form-data")
                 .putHeader("Connection", "keep-alive")
@@ -85,7 +85,7 @@ public class UploadControllerTest {
                         "file/xlsx");
 
         var response = sendRequest(client, form);
-        assertEquals(200, response.result().statusCode());
+        assertEquals(201, response.result().statusCode());
     }
 
     @Test
@@ -152,7 +152,7 @@ public class UploadControllerTest {
         when(userDataSource.selectUserByNameAndPassword(eq(user.getName()), eq(user.getPassword())))
                 .thenReturn(user);
 
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/login")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/user")
                 .sendJson(new JsonObject()
                         .put("name", user.getName())
                         .put("password", user.getPassword()));
@@ -166,7 +166,7 @@ public class UploadControllerTest {
     public Future<HttpResponse<Buffer>> sendRequest(WebClient client, MultipartForm data) {
         String token = login(TestUserProvider.getCorrectAdmin());
 
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/resources/upload")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/handbooks/handbook")
                 .putHeader("Authorization", "Bearer " + token)
                 .putHeader("Content-Type", "multipart/form-data")
                 .putHeader("Connection", "keep-alive")

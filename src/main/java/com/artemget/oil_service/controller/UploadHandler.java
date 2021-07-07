@@ -66,7 +66,7 @@ public class UploadHandler implements Handler<RoutingContext> {
                         return;
                     }
                     event.response()
-                            .setStatusCode(200)
+                            .setStatusCode(201)
                             .end();
                 })
                 .exceptionally(throwable -> {

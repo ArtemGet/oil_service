@@ -23,12 +23,12 @@ public class ControllerModule extends AbstractModule {
                                 UploadHandler uploadHandler) {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create().setDeleteUploadedFilesOnEnd(true));
-        router.route("/api/resources/*").handler(JWTAuthHandler.create(jwtAuthProvider));
+        router.route("/api/*").handler(JWTAuthHandler.create(jwtAuthProvider));
 
-        router.route(HttpMethod.GET, "/login").handler(loginHandler);
-        router.route(HttpMethod.POST, "/register").handler(registrationHandler);
+        router.route(HttpMethod.GET, "/users/user").handler(loginHandler);
+        router.route(HttpMethod.POST, "/users/user").handler(registrationHandler);
 
-        router.route(HttpMethod.POST, "/api/resources/upload").handler(uploadHandler);
+        router.route(HttpMethod.POST, "/api/handbooks/handbook").handler(uploadHandler);
         return router;
     }
 }
