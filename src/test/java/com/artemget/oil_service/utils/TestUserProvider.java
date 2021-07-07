@@ -19,7 +19,7 @@ public class TestUserProvider {
                 .name("user")
                 .password("123")
                 .email("user@user.com")
-                .isAdmin(true)
+                .isAdmin(false)
                 .build();
     }
 

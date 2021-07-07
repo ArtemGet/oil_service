@@ -16,7 +16,7 @@ public class SQLUserSource implements UserDataSource {
         this.jdbi = jdbi;
         jdbi.registerRowMapper(User.class, (rs, ctx) ->
                 User.builder()
-                        .name(rs.getString("name"))
+                        .name(rs.getString("user_name"))
                         .password(rs.getString("password"))
                         .email(rs.getString("email"))
                         .isAdmin(rs.getBoolean("is_admin"))
@@ -25,9 +25,9 @@ public class SQLUserSource implements UserDataSource {
     }
 
     @Override
-    public void addUser(User user) {
+    public void insertUser(User user) {
         jdbi.withHandle(handle ->
-                handle.createUpdate("INSERT INTO users (email, name, password) VALUES (?, ?, ?)")
+                handle.createUpdate("INSERT INTO users (email, user_name, password) VALUES (?, ?, ?)")
                         .bind(0, user.getEmail())
                         .bind(1, user.getName())
                         .bind(2, user.getPassword())
@@ -35,9 +35,9 @@ public class SQLUserSource implements UserDataSource {
     }
 
     @Override
-    public User getUserByNameAndPassword(String name, String password) {
+    public User selectUserByNameAndPassword(String name, String password) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM users WHERE name = ? AND password = ?")
+                handle.createQuery("SELECT * FROM users WHERE user_name = ? AND password = ?")
                         .bind(0, name)
                         .bind(1, password)
                         .mapTo(User.class)
@@ -46,7 +46,7 @@ public class SQLUserSource implements UserDataSource {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> selectAllUsers() {
         return null;
     }
 }

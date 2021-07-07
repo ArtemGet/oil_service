@@ -8,4 +8,6 @@ public interface OilRepository {
     List<Oil> getAll();
 
     Oil getBySomeParam(Oil oil);
+
+    void addOilList(List<Oil> oilList, int recordId);
 }

@@ -1,9 +1,6 @@
 package com.artemget.oil_service.di.modules;
 
-import com.artemget.oil_service.repository.OilRepository;
-import com.artemget.oil_service.repository.OilRepositoryImpl;
-import com.artemget.oil_service.repository.UserRepository;
-import com.artemget.oil_service.repository.UserRepositoryImpl;
+import com.artemget.oil_service.repository.*;
 import com.google.inject.AbstractModule;
 
 public class RepositoryModule extends AbstractModule {
@@ -15,6 +12,9 @@ public class RepositoryModule extends AbstractModule {
 
         bind(UserRepository.class)
                 .to(UserRepositoryImpl.class)
+                .asEagerSingleton();
+        bind(RecordRepository.class)
+                .to(RecordRepositoryImpl.class)
                 .asEagerSingleton();
     }
 }

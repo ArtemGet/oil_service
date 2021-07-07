@@ -25,4 +25,9 @@ public class OilRepositoryImpl implements OilRepository {
     public Oil getBySomeParam(Oil oil) {
         return null;
     }
+
+    @Override
+    public void addOilList(List<Oil> oilList, int recordId) {
+        dataSource.insertOilList(oilList, recordId);
+    }
 }

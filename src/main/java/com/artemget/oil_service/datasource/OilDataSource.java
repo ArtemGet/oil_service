@@ -5,10 +5,12 @@ import com.artemget.oil_service.model.Oil;
 import java.util.List;
 
 public interface OilDataSource {
-    List<Oil> getAll();
+    List<Oil> selectAll();
 
-    List<Oil> getLimited();
+    List<Oil> selectOilLimited(int limit);
+
+    void insertOilList(List<Oil> oilList, int recordId);
 
     //change later
-    Oil getBySomeParam(Oil oil);
+    Oil selectBySomeParam(Oil oil);
 }

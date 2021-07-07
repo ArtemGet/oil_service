@@ -10,6 +10,7 @@ import com.google.inject.name.Named;
 import static org.mockito.Mockito.mock;
 
 public class MockConfigModule extends AbstractModule {
+    //TODO set properties properly!
     @Provides
     @Singleton
     public ApplicationConfig config(@Named("mock_sql_config") SQLConfig sqlConfig) {
