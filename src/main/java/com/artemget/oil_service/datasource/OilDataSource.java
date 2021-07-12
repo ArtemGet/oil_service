@@ -1,6 +1,7 @@
 package com.artemget.oil_service.datasource;
 
 import com.artemget.oil_service.model.Oil;
+import com.artemget.oil_service.model.OilRequest;
 
 import java.util.List;
 
@@ -11,6 +12,5 @@ public interface OilDataSource {
 
     void insertOilList(List<Oil> oilList, int recordId);
 
-    //change later
-    Oil selectBySomeParam(Oil oil);
+    List<Oil> selectOilList(OilRequest requestList);
 }
