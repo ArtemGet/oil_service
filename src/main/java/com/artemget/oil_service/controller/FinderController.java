@@ -54,11 +54,11 @@ public class FinderController implements Handler<RoutingContext> {
                     }
                     event.response()
                             .putHeader("Content-Type", "application/json")
+                            .setStatusCode(200)
                             .end(OilParser.toJson(oilList)
                                     .encodePrettily());
                 })
                 .exceptionally(throwable -> {
-                    System.out.println(throwable.getMessage());
                     log.error("Error: internal", throwable);
                     event.fail(500);
                     return null;

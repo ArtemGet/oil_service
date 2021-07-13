@@ -1,4 +1,4 @@
-package com.artemget.oil_service.unit;
+package com.artemget.oil_service.unit.parser;
 
 import com.artemget.oil_service.model.Oil;
 import com.artemget.oil_service.utils.TestOilProvider;
