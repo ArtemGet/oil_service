@@ -30,7 +30,7 @@ public class FinderControllerTest {
 
     @Test
     public void shouldSendUnauthorizedIfNotLoggedIn() {
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/api/handbooks/handbook/Oils/oil?param=density20&value=0.123&limit=1")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", "/api/handbooks/handbook/oils/oil?param=density20&value=0.123&limit=1")
                 .putHeader("Authorization", "Bearer " + "someInvalidToken")
                 .send();
         while (!response.isComplete()) {
@@ -93,7 +93,7 @@ public class FinderControllerTest {
 
     public Future<HttpResponse<Buffer>> sendRequest(WebClient client, String param, double value, long limit) {
         String token = login(TestUserProvider.getCorrectAdmin());
-        String reqPath = String.format("/api/handbooks/handbook/Oils/oil?param=%s&value=%f&limit=%d", param, value, limit);
+        String reqPath = String.format("/api/handbooks/handbook/oils/oil?param=%s&value=%f&limit=%d", param, value, limit);
 
         var response = client.request(HttpMethod.GET, 8080, "localhost", reqPath)
                 .putHeader("Authorization", "Bearer " + token)

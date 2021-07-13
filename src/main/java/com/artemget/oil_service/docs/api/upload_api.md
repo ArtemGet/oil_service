@@ -1,4 +1,5 @@
-# Xlsx upload API
+# Xlsx upload API    
+__Admin roots required!__
 
 ## Request
 

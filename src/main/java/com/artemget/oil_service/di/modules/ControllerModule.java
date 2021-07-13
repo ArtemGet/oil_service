@@ -31,7 +31,7 @@ public class ControllerModule extends AbstractModule {
         router.route(HttpMethod.POST, "/users/user").handler(registrationHandler);
 
         router.route(HttpMethod.POST, "/api/handbooks/handbook").handler(uploadHandler);
-        router.route(HttpMethod.GET, "/api/handbooks/handbook/Oils/oil").handler(finderController);
+        router.route(HttpMethod.GET, "/api/handbooks/handbook/oils/oil").handler(finderController);
         return router;
     }
 }
