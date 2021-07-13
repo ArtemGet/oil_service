@@ -3,8 +3,8 @@ __Goals:__
     
 :white_check_mark: authenticate and authorise users   
 :white_check_mark: consume documents in xlsx and store in SQL db       
-:white_large_square: find and send requested data in different ways    
-:white_large_square: find and delete data by upload date      
+:white_check_mark: search for requested data     
+:white_large_square: search and delete data by upload date      
 :white_large_square: download stored data in xlsx format      
 :white_large_square: delete explicit data        
 :white_check_mark: reasonable test coverage     

@@ -1,6 +1,7 @@
 package com.artemget.oil_service.utils;
 
 import com.artemget.oil_service.model.Oil;
+import io.vertx.core.json.JsonObject;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -17,6 +18,17 @@ public class TestOilProvider {
                 .build();
     }
 
+    public static JsonObject provideValidOneJson() {
+        return new JsonObject()
+                .put("name", "Шляховская-3")
+                .put("output_place", "Волгоградская область")
+                .put("p20", 798.0E-3)
+                .put("p50", 798.0E-3)
+                .put("v20", 3.17)
+                .put("v50", 1.9)
+                .put("hk_350", 63.8);
+    }
+
     public static Oil provideValidTwo() {
         return Oil.builder()
                 .name("Антиповско-балыклейская")
@@ -27,6 +39,17 @@ public class TestOilProvider {
                 .viscosity50(2.24)
                 .hk350(65.9)
                 .build();
+    }
+
+    public static JsonObject provideValidTwoJson() {
+        return new JsonObject()
+                .put("name", "Антиповско-балыклейская")
+                .put("output_place", "Волгоградская область")
+                .put("p20", 814.2E-3)
+                .put("p50", 814.2E-3)
+                .put("v20", 3.94)
+                .put("v50", 2.24)
+                .put("hk_350", 65.9);
     }
 
     public static Oil provideValidThree() {

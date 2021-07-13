@@ -1,4 +1,4 @@
-package com.artemget.oil_service.unit;
+package com.artemget.oil_service.unit.validation;
 
 import com.artemget.oil_service.exception.ParameterValidationException;
 import com.artemget.oil_service.validation.HttpValidator;
@@ -13,6 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class RegistrationValidatorTest {
+    private final HttpValidator validator = new RegistrationValidator();
     @Test
     public void shouldPassValidationOnCorrectParams() {
         RoutingContext event = mock(RoutingContext.class);
@@ -22,7 +23,6 @@ public class RegistrationValidatorTest {
                         .put("password", "123")
                         .put("email", "user@user.com"));
 
-        HttpValidator validator = new RegistrationValidator();
         assertDoesNotThrow(() -> {
             validator.validate(event);
         });
@@ -33,7 +33,6 @@ public class RegistrationValidatorTest {
         RoutingContext event = mock(RoutingContext.class);
         when(event.getBodyAsJson()).thenReturn(null);
 
-        HttpValidator validator = new RegistrationValidator();
         assertThrows(ParameterValidationException.class,
                 () -> validator.validate(event));
 
@@ -51,7 +50,6 @@ public class RegistrationValidatorTest {
                         .put("password", "")
                         .put("email", ""));
 
-        HttpValidator validator = new RegistrationValidator();
         assertThrows(ParameterValidationException.class,
                 () -> validator.validate(event));
     }
@@ -65,7 +63,6 @@ public class RegistrationValidatorTest {
                         .put("password", "123")
                         .put("email", "user$usercom"));
 
-        HttpValidator validator = new RegistrationValidator();
         assertThrows(ParameterValidationException.class,
                 () -> validator.validate(event));
     }
