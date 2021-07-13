@@ -1,7 +1,7 @@
 package com.artemget.oil_service.datasource;
 
 import com.artemget.oil_service.model.Oil;
-import com.artemget.oil_service.model.OilRequest;
+import com.artemget.oil_service.repository.reqest.OilRequest;
 
 import java.util.List;
 

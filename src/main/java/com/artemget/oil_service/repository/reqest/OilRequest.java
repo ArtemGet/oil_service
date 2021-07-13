@@ -1,4 +1,4 @@
-package com.artemget.oil_service.model;
+package com.artemget.oil_service.repository.reqest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

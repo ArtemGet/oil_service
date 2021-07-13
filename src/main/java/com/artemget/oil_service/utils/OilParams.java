@@ -26,6 +26,15 @@ public enum OilParams {
         return null;
     }
 
+    public static OilParams isDbValue(String value) {
+        for (OilParams param : OilParams.values()) {
+            if (param.dBDefinition.equals(value)) {
+                return param;
+            }
+        }
+        return null;
+    }
+
     public String getDBDefinition() {
         return this.dBDefinition;
     }

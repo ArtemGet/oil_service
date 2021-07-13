@@ -1,5 +1,6 @@
 package com.artemget.oil_service.di.modules;
 
+import com.artemget.oil_service.controller.FinderController;
 import com.artemget.oil_service.controller.UploadHandler;
 import com.artemget.oil_service.controller.LoginHandler;
 import com.artemget.oil_service.controller.RegistrationHandler;
@@ -20,7 +21,8 @@ public class ControllerModule extends AbstractModule {
                                 JWTAuth jwtAuthProvider,
                                 LoginHandler loginHandler,
                                 RegistrationHandler registrationHandler,
-                                UploadHandler uploadHandler) {
+                                UploadHandler uploadHandler,
+                                FinderController finderController) {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create().setDeleteUploadedFilesOnEnd(true));
         router.route("/api/*").handler(JWTAuthHandler.create(jwtAuthProvider));
@@ -29,6 +31,7 @@ public class ControllerModule extends AbstractModule {
         router.route(HttpMethod.POST, "/users/user").handler(registrationHandler);
 
         router.route(HttpMethod.POST, "/api/handbooks/handbook").handler(uploadHandler);
+        router.route(HttpMethod.GET, "/api/handbooks/handbook/Oils/oil").handler(finderController);
         return router;
     }
 }

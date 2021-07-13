@@ -1,8 +1,7 @@
 package com.artemget.oil_service.datasource;
 
 import com.artemget.oil_service.model.Oil;
-import com.artemget.oil_service.model.OilRequest;
-import com.artemget.oil_service.model.User;
+import com.artemget.oil_service.repository.reqest.OilRequest;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.jdbi.v3.core.Jdbi;
@@ -23,7 +22,7 @@ public class SQLOilSource implements OilDataSource {
                         .density20(rs.getDouble("density20"))
                         .density50(rs.getDouble("density50"))
                         .viscosity20(rs.getDouble("viscosity20"))
-                        .density50(rs.getDouble("viscosity50"))
+                        .viscosity50(rs.getDouble("viscosity50"))
                         .hk350(rs.getDouble("HK_350"))
                         .build()
         );
@@ -63,19 +62,17 @@ public class SQLOilSource implements OilDataSource {
         ));
     }
 
-    //pattern!!!!
     @Override
     public List<Oil> selectOilList(OilRequest request) {
        return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT FROM * " +
-                        "((SELECT * FROM oil_types WHERE :param >= :value ORDER BY density20 LIMIT :limit) " +
+                handle.createQuery("SELECT * FROM " +
+                        "((SELECT * FROM oil_types WHERE " + request.getParam() + " >= :val ORDER BY " + request.getParam() + " LIMIT :lim) " +
                         "UNION ALL " +
-                        "(SELECT * FROM oil_types WHERE :param < :value ORDER BY density20 DESC LIMIT :limit) " +
-                        ") as r*l* " +
-                        "ORDER BY abs(:param - :value) LIMIT = :limit")
-                        .bind("param", request.getParam())
-                        .bind("value", request.getValue())
-                        .bind("limit", request.getLimit())
+                        "(SELECT * FROM oil_types WHERE " + request.getParam() + " < :val ORDER BY " + request.getParam() + " DESC LIMIT :lim)) " +
+                        "as \"r*l*\" " +
+                        "ORDER BY abs(" + request.getParam() + " - :val) LIMIT :lim")
+                        .bind("val", request.getValue())
+                        .bind("lim", request.getLimit())
                         .mapTo(Oil.class)
                         .list()
         );
