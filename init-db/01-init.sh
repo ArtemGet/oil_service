@@ -1,4 +1,3 @@
-#!/bin/bash
 set -e
 
 psql -v ON_ERROR_STOP=1 --dbname "postgres" <<-EOSQL
@@ -52,4 +51,3 @@ create table if not exists oil_types
   INSERT INTO users (user_name,email,password,is_admin)
   VALUES ('admin', 'admin@mail.ru', '1234', 'true');
   COMMIT;
-EOSQL
