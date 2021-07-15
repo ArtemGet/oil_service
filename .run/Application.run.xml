@@ -2,7 +2,7 @@
   <configuration default="false" name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.artemget.oil_service.Application" />
     <module name="oil_microservice.main" />
-    <option name="VM_PARAMETERS" value="-DdataSource=&quot;postgres&quot; -DsecretBuffer=&quot;secret&quot; -DkeyStorePath=&quot;$USER_HOME$/.jdks/adopt-openjdk-14.0.2/bin/keystore.jceks&quot; -DkeyStorePassword=&quot;12345678&quot;" />
+    <option name="VM_PARAMETERS" value="-DdataSource=&quot;postgres&quot; -DsecretBuffer=&quot;secret&quot; -DkeyStorePath=&quot;src/main/resources/keystore.jceks&quot; -DkeyStorePassword=&quot;12345678&quot; -Dlog4j.error" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.artemget.oil_service.*" />

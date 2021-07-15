@@ -1,17 +1,39 @@
 plugins {
     id 'java'
-    id 'application'
 }
 
 group 'org.example'
-version '1.0-SNAPSHOT'
+version '1.0'
+
+sourceCompatibility = 14
+targetCompatibility = 14
 
 repositories {
     mavenCentral()
 }
 
-application {
-    mainClassName = "com/artemget/oil_service/Application"
+jar {
+    manifest {
+        attributes "Main-Class": "com.artemget.oil_service.Application"
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest.from jar.manifest
+    classifier = 'all'
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    duplicatesStrategy(DuplicatesStrategy.WARN)
+    with jar
+}
+
+artifacts {
+    archives fatJar
 }
 
 dependencies {
@@ -34,6 +56,7 @@ dependencies {
     implementation group: 'org.jdbi', name: 'jdbi3-core', version: '3.20.1'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.31'
 
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 

@@ -1,5 +1,5 @@
 ##Gradle template
-.gradle
+gradle
 /build/
 
 ##Avoid ignoring Gradle wrapper jar file
@@ -11,6 +11,7 @@
 *iws
 *iml
 *ipr
+/.run/
 
 ##Avoid Vertx auto-generated config
 #config
