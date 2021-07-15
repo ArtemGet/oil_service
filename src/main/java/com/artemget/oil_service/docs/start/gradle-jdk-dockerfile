@@ -1,0 +1,30 @@
+FROM openjdk:14-jdk-alpine
+RUN apk add --no-cache curl tar bash procps
+
+ARG GRADLE_VERSION=7.1.1
+ARG GRADLE_BASE_URL=https://services.gradle.org/distributions
+ARG GRADLE_SHA=bf8b869948901d422e9bb7d1fa61da6a6e19411baa7ad6ee929073df85d6365d
+
+RUN mkdir -p /usr/share/gradle /usr/share/gradle/ref \
+  && echo "Downlaoding gradle hash" \
+  && curl -fsSL -o /tmp/gradle.zip ${GRADLE_BASE_URL}/gradle-${GRADLE_VERSION}-bin.zip \
+  \
+  && echo "Checking download hash" \
+  && echo "${GRADLE_SHA}  /tmp/gradle.zip" | sha256sum -c - \
+  \
+  && echo "Unziping gradle" \
+  && unzip -d /usr/share/gradle /tmp/gradle.zip \
+   \
+  && echo "Cleaning and setting links" \
+  && rm -f /tmp/gradle.zip \
+  && ln -s /usr/share/gradle/gradle-${GRADLE_VERSION} /usr/bin/gradle
+
+ENV GRADLE_VERSION 7.1.1
+ENV GRADLE_HOME /usr/bin/gradle
+ENV GRADLE_USER_HOME /cache
+
+ENV PATH $PATH:$GRADLE_HOME/bin
+
+VOLUME $GRADLE_USER_HOME
+
+CMD [""]

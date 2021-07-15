@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum EnvProperties {
-
+//TODO: separate
     LOCAL_DEV("local_dev"),
     PRODUCTION("production"),
     MYSQL("mysql"),

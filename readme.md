@@ -8,11 +8,14 @@ __Goals:__
 :white_large_square: download stored data in xlsx format      
 :white_large_square: delete explicit data        
 :white_check_mark: reasonable test coverage     
-:white_check_mark: has documentation
-
+:white_check_mark: has documentation         
+:white_check_mark: encapsulated in docker container
+      
 __The main purpose of this microservice is to provide oil handbook data.__
 
 ## Documentation    
+__[Application start](https://github.com/ArtemGet/oil_service/tree/master/src/main/java/com/artemget/oil_service/docs/start/start.md)__ - __quick guide to start deploy app__
+
 __[API](https://github.com/ArtemGet/oil_service/blob/master/src/main/java/com/artemget/oil_service/docs/api/api_main.md)__ - __service's apis/endpoints__
 
 __[Branching style](https://github.com/ArtemGet/oil_service/blob/master/src/main/java/com/artemget/oil_service/docs/code_style/development_style.md)__ - __service's branching style__

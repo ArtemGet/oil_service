@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: llyvarch/postgres-ru
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
+      timeout: 10s
+      interval: 3s
+      retries: 10
+    ports:
+      - 5433:5432
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+  oil_service:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres

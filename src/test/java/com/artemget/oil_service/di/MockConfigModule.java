@@ -15,7 +15,7 @@ public class MockConfigModule extends AbstractModule {
     @Singleton
     public ApplicationConfig config(@Named("mock_sql_config") SQLConfig sqlConfig) {
         //TEMPORARY!!!
-        System.setProperty("keyStorePath","C:/Users/KekuS/.jdks/adopt-openjdk-14.0.2/bin/keystore.jceks");
+        System.setProperty("keyStorePath","src/main/resources/keystore.jceks");
         System.setProperty("secretBuffer","test");
         System.setProperty("keyStorePassword","12345678");
 

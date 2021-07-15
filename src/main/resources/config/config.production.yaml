@@ -1,0 +1,11 @@
+postgres:
+  url: "jdbc:postgresql://host.docker.internal:5433/oil_db"
+  user: "postgres"
+  password: "postgres"
+  pool: 5
+
+mySQL:
+  url: "localhost"
+  user: "admin"
+  password: "admin"
+  pool: 5
