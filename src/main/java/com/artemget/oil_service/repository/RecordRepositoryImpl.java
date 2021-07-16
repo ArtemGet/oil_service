@@ -1,9 +1,12 @@
 package com.artemget.oil_service.repository;
 
 import com.artemget.oil_service.datasource.RecordDataSource;
+import com.artemget.oil_service.model.Record;
 import com.artemget.oil_service.model.User;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
+import java.util.List;
 
 @Singleton
 public class RecordRepositoryImpl implements RecordRepository {
@@ -22,5 +25,15 @@ public class RecordRepositoryImpl implements RecordRepository {
     @Override
     public void removeRecord(int recordId) {
         recordDataSource.deleteRecordById(recordId);
+    }
+
+    @Override
+    public void removeRecords(List<Record> recordIdList) {
+
+    }
+
+    @Override
+    public List<Record> getAll() {
+        return recordDataSource.selectAllRecords();
     }
 }

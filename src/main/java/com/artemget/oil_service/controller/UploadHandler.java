@@ -22,15 +22,15 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Singleton
 public class UploadHandler implements Handler<RoutingContext> {
-    private final HttpValidator registrationValidator;
+    private final HttpValidator uploadValidator;
     private final ExecutorProvider executorProvider;
     private final OilUploadService oilUploadService;
 
     @Inject
-    public UploadHandler(@Named("upload_validator") HttpValidator registrationValidator,
+    public UploadHandler(@Named("upload_validator") HttpValidator uploadValidator,
                          ExecutorProvider executorProvider,
                          OilUploadService oilUploadService) {
-        this.registrationValidator = registrationValidator;
+        this.uploadValidator = uploadValidator;
         this.executorProvider = executorProvider;
         this.oilUploadService = oilUploadService;
     }
@@ -39,7 +39,7 @@ public class UploadHandler implements Handler<RoutingContext> {
     @Override
     public void handle(RoutingContext event) {
         try {
-            registrationValidator.validate(event);
+            uploadValidator.validate(event);
         } catch (ParameterValidationException e) {
             e.printStackTrace();
             log.error("Bad request", e);

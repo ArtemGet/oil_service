@@ -17,15 +17,15 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Singleton
-public class FinderController implements Handler<RoutingContext> {
+public class FinderHandler implements Handler<RoutingContext> {
     private final HttpValidator finderValidator;
     private final ExecutorProvider executorProvider;
     private final OilFinderService finderService;
 
     @Inject
-    public FinderController(@Named("finder_validator") HttpValidator finderValidator,
-                            ExecutorProvider executorProvider,
-                            OilFinderService oilUploadService) {
+    public FinderHandler(@Named("finder_validator") HttpValidator finderValidator,
+                         ExecutorProvider executorProvider,
+                         OilFinderService oilUploadService) {
         this.finderValidator = finderValidator;
         this.executorProvider = executorProvider;
         this.finderService = oilUploadService;

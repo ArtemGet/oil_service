@@ -1,14 +1,11 @@
 package com.artemget.oil_service.service;
 
-import com.artemget.oil_service.model.Oil;
 import com.artemget.oil_service.model.OilData;
 import com.artemget.oil_service.model.User;
 import com.artemget.oil_service.repository.OilRepository;
 import com.artemget.oil_service.repository.RecordRepository;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import java.util.List;
 
 @Singleton
 public class OilUploadService {

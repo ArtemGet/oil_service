@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-public class FinderControllerTest {
+public class FinderHandlerTest {
     @RegisterExtension
     static E2EExtension extension = new E2EExtension();
     private final WebClient client = extension.client;
