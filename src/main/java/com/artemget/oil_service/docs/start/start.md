@@ -1,6 +1,6 @@
 # Start guide
 
-1. Install [docker](https://www.docker.com/get-started) to your machine.
+1. Install [docker](https://www.docker.com/get-started) on your machine.
 
 > login required!
 

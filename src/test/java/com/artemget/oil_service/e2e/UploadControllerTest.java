@@ -152,9 +152,8 @@ public class UploadControllerTest {
         when(userDataSource.selectUserByNameAndPassword(eq(user.getName()), eq(user.getPassword())))
                 .thenReturn(user);
 
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/user")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", String.format("/users/?name=%s", user.getName()))
                 .sendJson(new JsonObject()
-                        .put("name", user.getName())
                         .put("password", user.getPassword()));
         while (!response.isComplete()) {
         }

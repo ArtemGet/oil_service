@@ -7,8 +7,11 @@ public class LoginValidator implements HttpValidator {
     @Override
     public void setEvent(RoutingContext event) {
         var body = event.getBodyAsJson();
-        Preconditions.checkArgument(!body.getString("name").isEmpty());
+        var nameParam = event.request().getParam("name");
+
+        Preconditions.checkNotNull(nameParam);
+        Preconditions.checkArgument(!nameParam.isEmpty());
         Preconditions.checkArgument(!body.getString("password").isEmpty());
-        Preconditions.checkArgument(event.getBodyAsJson().fieldNames().size() == 2);
+        Preconditions.checkArgument(event.getBodyAsJson().fieldNames().size() == 1);
     }
 }

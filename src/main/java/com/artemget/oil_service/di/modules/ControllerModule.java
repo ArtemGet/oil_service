@@ -27,8 +27,8 @@ public class ControllerModule extends AbstractModule {
         router.route().handler(BodyHandler.create().setDeleteUploadedFilesOnEnd(true));
         router.route("/api/*").handler(JWTAuthHandler.create(jwtAuthProvider));
 
-        router.route(HttpMethod.GET, "/users/user").handler(loginHandler);
-        router.route(HttpMethod.POST, "/users/user").handler(registrationHandler);
+        router.route(HttpMethod.GET, "/users/").handler(loginHandler);
+        router.route(HttpMethod.POST, "/users").handler(registrationHandler);
 
         router.route(HttpMethod.POST, "/api/handbooks/handbook").handler(uploadHandler);
         router.route(HttpMethod.GET, "/api/handbooks/handbook/oils/oil").handler(finderController);

@@ -14,7 +14,7 @@ __Goals:__
 __The main purpose of this microservice is to provide oil handbook data.__
 
 ## Documentation    
-__[Application start](https://github.com/ArtemGet/oil_service/tree/master/src/main/java/com/artemget/oil_service/docs/start/start.md)__ - __quick guide to start deploy app__
+__[Application start](https://github.com/ArtemGet/oil_service/tree/master/src/main/java/com/artemget/oil_service/docs/start/start.md)__ - __quick guide to start app__
 
 __[API](https://github.com/ArtemGet/oil_service/blob/master/src/main/java/com/artemget/oil_service/docs/api/api_main.md)__ - __service's apis/endpoints__
 
