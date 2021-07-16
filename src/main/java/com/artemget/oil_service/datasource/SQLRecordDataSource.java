@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDateTime;
+
 @Singleton
 public class SQLRecordDataSource implements RecordDataSource {
     private final Jdbi jdbi;
@@ -14,10 +16,13 @@ public class SQLRecordDataSource implements RecordDataSource {
     }
 
     @Override
-    public int insertRecord(String adminName) {
+    public int insertRecord(String adminName, long inserted, long corrupted) {
         return jdbi.withHandle(handle ->
-                handle.createUpdate("INSERT INTO oil_records (user_name) VALUES (?)")
+                handle.createUpdate("INSERT INTO oil_records (user_name, inserted, corrupted, insertion_date) VALUES (?,?,?,?)")
                         .bind(0, adminName)
+                        .bind(1, inserted)
+                        .bind(2, corrupted)
+                        .bind(3, LocalDateTime.now())
                         .executeAndReturnGeneratedKeys("record_id")
                         .mapTo(Integer.class)
                         .first()

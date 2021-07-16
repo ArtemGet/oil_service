@@ -15,8 +15,8 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     @Override
-    public int addRecord(User user) {
-        return recordDataSource.insertRecord(user.getName());
+    public int addRecord(User user, long inserted, long corrupted) {
+        return recordDataSource.insertRecord(user.getName(), inserted, corrupted);
     }
 
     @Override

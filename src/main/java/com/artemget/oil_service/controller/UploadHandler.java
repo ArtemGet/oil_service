@@ -3,6 +3,7 @@ package com.artemget.oil_service.controller;
 import com.artemget.oil_service.exception.ParameterValidationException;
 import com.artemget.oil_service.executor.ExecutorProvider;
 import com.artemget.oil_service.model.Oil;
+import com.artemget.oil_service.model.OilData;
 import com.artemget.oil_service.model.User;
 import com.artemget.oil_service.service.OilUploadService;
 import com.artemget.oil_service.utils.XlsxParser;
@@ -76,14 +77,14 @@ public class UploadHandler implements Handler<RoutingContext> {
                 });
     }
 
-    private List<Oil> getAndParseData(RoutingContext event) {
+    private OilData getAndParseData(RoutingContext event) {
         FileUpload fileUpload = event.fileUploads().stream()
                 .findFirst()
                 .get();
         return XlsxParser.parseXLSXFileToModel(fileUpload.uploadedFileName());
     }
 
-    private boolean store(List<Oil> oilList, User user) {
-        return oilUploadService.storeOil(oilList, user);
+    private boolean store(OilData oilData, User user) {
+        return oilUploadService.storeOil(oilData, user);
     }
 }

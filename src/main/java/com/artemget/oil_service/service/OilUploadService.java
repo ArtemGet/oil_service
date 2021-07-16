@@ -1,6 +1,7 @@
 package com.artemget.oil_service.service;
 
 import com.artemget.oil_service.model.Oil;
+import com.artemget.oil_service.model.OilData;
 import com.artemget.oil_service.model.User;
 import com.artemget.oil_service.repository.OilRepository;
 import com.artemget.oil_service.repository.RecordRepository;
@@ -21,10 +22,10 @@ public class OilUploadService {
     }
 
     //TODO: rewrite with rollback
-    public boolean storeOil(List<Oil> oilList, User user) {
-        var recordId = recordRepository.addRecord(user);
+    public boolean storeOil(OilData oilData, User user) {
+        var recordId = recordRepository.addRecord(user, oilData.getOilList().size(), oilData.getCorrupted());
         try {
-            oilRepository.addOilList(oilList, recordId);
+            oilRepository.addOilList(oilData.getOilList(), recordId);
         } catch (Exception e) {
             e.printStackTrace();
             recordRepository.removeRecord(recordId);

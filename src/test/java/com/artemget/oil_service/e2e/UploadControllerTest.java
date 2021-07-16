@@ -96,7 +96,7 @@ public class UploadControllerTest {
                         "valid_single_page.xlsx",
                         "src/test/resources/xlsx_files/valid_single_page.xlsx",
                         "file/xlsx");
-        when(recordDataSource.insertRecord("admin"))
+        when(recordDataSource.insertRecord("admin",2, 0))
                 .thenReturn(1);
         doThrow(IllegalStateException.class)
                 .when(oilDataSource)
