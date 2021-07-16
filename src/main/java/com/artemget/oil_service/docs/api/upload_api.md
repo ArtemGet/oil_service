@@ -6,7 +6,7 @@ __Admin roots required!__
 __Request format:__
 
 ```
-POST [domain]:[port]/api/handbooks/handbook
+POST [domain]:[port]/api/oils
 Authorization: Bearer some-valid.JWT.token
 Content-Type: multipart/form-data;  boundary=some-boundary
 Connection: keep-alive
@@ -21,7 +21,7 @@ __Request parameter description:__
 __Request example:__
 
 ```
-POST https://127.0.0.1:8080/api/handbooks/handbook
+POST https://127.0.0.1:8080/api/oils
 Authorization: Bearer some-valid.JWT.token
 Content-Type: multipart/form-data;  boundary=---123
 Connection: keep-alive

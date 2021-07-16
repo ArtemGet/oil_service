@@ -27,11 +27,11 @@ public class ControllerModule extends AbstractModule {
         router.route().handler(BodyHandler.create().setDeleteUploadedFilesOnEnd(true));
         router.route("/api/*").handler(JWTAuthHandler.create(jwtAuthProvider));
 
-        router.route(HttpMethod.GET, "/users/").handler(loginHandler);
+        router.route(HttpMethod.GET, "/users/:name").handler(loginHandler);
         router.route(HttpMethod.POST, "/users").handler(registrationHandler);
 
-        router.route(HttpMethod.POST, "/api/handbooks/handbook").handler(uploadHandler);
-        router.route(HttpMethod.GET, "/api/handbooks/handbook/oils/oil").handler(finderController);
+        router.route(HttpMethod.POST, "/api/oils").handler(uploadHandler);
+        router.route(HttpMethod.GET, "/api/oils/:param/:limit").handler(finderController);
         return router;
     }
 }

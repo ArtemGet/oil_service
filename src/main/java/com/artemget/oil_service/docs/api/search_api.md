@@ -8,7 +8,7 @@ the backend will find the closest oils limited by request__
 __Request format:__
 
 ```
-GET [domain]:[port]/api/handbooks/handbook/oils/oil
+GET [domain]:[port]/api/oils/:param/:limit
 Authorization: Bearer some-valid.JWT.token
 Accept: application/json
 ```
@@ -24,9 +24,12 @@ __Request parameter description:__
 __Request example:__
 
 ```
-GET https://127.0.0.1:8080/api/handbooks/handbook/oils/oil?param=density20&value=0.123&limit=1
+GET https://127.0.0.1:8080/api/oils/density20/1
 Authorization: Bearer some-valid.JWT.token
 Accept: application/json
+{
+value = 0.123
+}
 ```
 
 ## Response

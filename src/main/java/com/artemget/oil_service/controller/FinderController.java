@@ -40,9 +40,9 @@ public class FinderController implements Handler<RoutingContext> {
             log.error("Error: bad request", e);
             return;
         }
-        String param = event.request().getParam("param");
-        double value = Double.parseDouble(event.request().getParam("value"));
-        long limit = Long.parseLong(event.request().getParam("limit"));
+        String param = event.pathParam("param");
+        double value = event.getBodyAsJson().getDouble("value");
+        long limit = Long.parseLong(event.pathParam("limit"));
 
         CompletableFuture.supplyAsync(() -> finderService.findOils(new OilRequest(param, value, limit)),
                 executorProvider.getExecutorService())

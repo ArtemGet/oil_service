@@ -30,9 +30,9 @@ public class FinderControllerTest {
 
     @Test
     public void shouldSendUnauthorizedIfNotLoggedIn() {
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/api/handbooks/handbook/oils/oil?param=density20&value=0.123&limit=1")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", "/api/oils/density20/1")
                 .putHeader("Authorization", "Bearer " + "someInvalidToken")
-                .send();
+                .sendJson(new JsonObject().put("value", 0.123));
         while (!response.isComplete()) {
 
         }
@@ -80,7 +80,7 @@ public class FinderControllerTest {
         when(userDataSource.selectUserByNameAndPassword(eq(user.getName()), eq(user.getPassword())))
                 .thenReturn(user);
 
-        var response = client.request(HttpMethod.GET, 8080, "localhost",  String.format("/users/?name=%s", user.getName()))
+        var response = client.request(HttpMethod.GET, 8080, "localhost",  String.format("/users/%s", user.getName()))
                 .sendJson(new JsonObject()
                         .put("password", user.getPassword()));
         while (!response.isComplete()) {
@@ -92,11 +92,11 @@ public class FinderControllerTest {
 
     public Future<HttpResponse<Buffer>> sendRequest(WebClient client, String param, double value, long limit) {
         String token = login(TestUserProvider.getCorrectAdmin());
-        String reqPath = String.format("/api/handbooks/handbook/oils/oil?param=%s&value=%f&limit=%d", param, value, limit);
+        String reqPath = String.format("/api/oils/%s/%d", param, limit);
 
         var response = client.request(HttpMethod.GET, 8080, "localhost", reqPath)
                 .putHeader("Authorization", "Bearer " + token)
-                .send();
+                .sendJson(new JsonObject().put("value", value));
         while (!response.isComplete()) {
 
         }

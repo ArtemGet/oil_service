@@ -66,7 +66,7 @@ __Response example:__
 __Request format:__
 
 ```
-GET [domain]:[port]/users/{user-name}
+GET [domain]:[port]/users/:name
 Content-Type: application/json
 Accept: application/json
 ```
@@ -81,7 +81,7 @@ __Request parameter description:__
 __Request example:__
 
 ```
-GET https://127.0.0.1:8080/users/?name=user
+GET https://127.0.0.1:8080/users/user
 Content-Type: application/json
 {
     "password": "123"

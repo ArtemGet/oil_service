@@ -7,7 +7,7 @@ public class LoginValidator implements HttpValidator {
     @Override
     public void setEvent(RoutingContext event) {
         var body = event.getBodyAsJson();
-        var nameParam = event.request().getParam("name");
+        var nameParam = event.pathParam("name");
 
         Preconditions.checkNotNull(nameParam);
         Preconditions.checkArgument(!nameParam.isEmpty());

@@ -47,7 +47,7 @@ public class LoginHandler implements Handler<RoutingContext> {
         }
         var body = event.getBodyAsJson();
         var user = User.builder()
-                .name(event.request().getParam("name"))
+                .name(event.pathParam("name"))
                 .password(body.getString("password"))
                 .build();
 
