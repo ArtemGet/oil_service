@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 public class FinderHandlerTest {
@@ -67,6 +68,7 @@ public class FinderHandlerTest {
         var resp = sendRequest(client, "density20", 0.123, 1);
 
         assertEquals(500, resp.result().statusCode());
+        reset(oilDataSource);
     }
 
     @Test
