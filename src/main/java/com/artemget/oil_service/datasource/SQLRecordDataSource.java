@@ -42,7 +42,7 @@ public class SQLRecordDataSource implements RecordDataSource {
     }
 
     @Override
-    public void deleteRecordById(int recordId) {
+    public void deleteRecordById(long recordId) {
         jdbi.withHandle(handle ->
                 handle.createUpdate("DELETE FROM oil_records WHERE record_id = ?")
                         .bind(0, recordId)

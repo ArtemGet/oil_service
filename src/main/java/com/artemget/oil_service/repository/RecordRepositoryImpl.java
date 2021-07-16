@@ -23,7 +23,7 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     @Override
-    public void removeRecord(int recordId) {
+    public void removeRecord(long recordId) {
         recordDataSource.deleteRecordById(recordId);
     }
 

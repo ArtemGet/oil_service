@@ -7,7 +7,7 @@ import java.util.List;
 public interface RecordDataSource {
     int insertRecord(String adminName, long inserted, long corrupted);
 
-    void deleteRecordById(int recordId);
+    void deleteRecordById(long recordId);
 
     void deleteRecordList(List<Record> recordList);
 

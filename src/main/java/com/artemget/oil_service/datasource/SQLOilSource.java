@@ -64,7 +64,7 @@ public class SQLOilSource implements OilDataSource {
 
     @Override
     public List<Oil> selectOilList(OilRequest request) {
-       return jdbi.withHandle(handle ->
+        return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM " +
                         "((SELECT * FROM oil_types WHERE " + request.getParam() + " >= :val ORDER BY " + request.getParam() + " LIMIT :lim) " +
                         "UNION ALL " +
@@ -76,5 +76,14 @@ public class SQLOilSource implements OilDataSource {
                         .mapTo(Oil.class)
                         .list()
         );
+    }
+
+    @Override
+    public List<Oil> selectOilListByRecordId(long recordId) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM oil_types WHERE record_id=?")
+                        .bind(0, recordId)
+                        .mapTo(Oil.class)
+                        .list());
     }
 }

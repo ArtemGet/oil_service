@@ -1,7 +1,7 @@
 package com.artemget.oil_service.service;
 
 import com.artemget.oil_service.model.Oil;
-import com.artemget.oil_service.model.Record;
+import com.artemget.oil_service.repository.RecordRepository;
 import com.artemget.oil_service.repository.reqest.OilRequest;
 import com.artemget.oil_service.repository.OilRepository;
 import com.google.inject.Inject;
@@ -22,7 +22,7 @@ public class OilFinderService {
         return repository.getOils(oilRequest);
     }
 
-    public List<Oil> getOilsByRecord(Record record) {
-        return null;
+    public List<Oil> getOilsByRecord(long recordId) {
+        return repository.getOilsByRecord(recordId);
     }
 }

@@ -35,4 +35,11 @@ public class ValidatorModule extends AbstractModule {
         return new FinderValidator();
     }
 
+    @Provides
+    @Named("oil_get_validator")
+    @Singleton
+    public HttpValidator provideOilGetValidator() {
+        return new OilGetValidator();
+    }
+
 }

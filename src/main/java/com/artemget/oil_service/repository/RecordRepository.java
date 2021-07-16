@@ -8,7 +8,7 @@ import java.util.List;
 public interface RecordRepository {
     int addRecord(User user, long inserted, long corrupted);
 
-    void removeRecord(int recordId);
+    void removeRecord(long recordId);
 
     void removeRecords(List<Record> recordIdList);
 

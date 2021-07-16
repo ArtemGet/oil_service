@@ -21,7 +21,11 @@ public class RecordService {
         return recordRepository.getAll();
     }
 
-    public void clearRecords(List<Record> recordList) {
+    public void clearRecords(List<Long> recordList) {
 
+    }
+
+    public void clearRecord(long recordList) {
+        recordRepository.removeRecord(recordList);
     }
 }

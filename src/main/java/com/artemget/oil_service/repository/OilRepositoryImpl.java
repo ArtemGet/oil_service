@@ -28,6 +28,11 @@ public class OilRepositoryImpl implements OilRepository {
     }
 
     @Override
+    public List<Oil> getOilsByRecord(long recordId) {
+        return dataSource.selectOilListByRecordId(recordId);
+    }
+
+    @Override
     public void addOilList(List<Oil> oilList, int recordId) {
         dataSource.insertOilList(oilList, recordId);
     }
