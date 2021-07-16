@@ -62,7 +62,7 @@ public class OilGetHandler implements Handler<RoutingContext> {
                 executorProvider.getExecutorService())
                 .thenAccept((oilList) -> {
                     if (oilList.isEmpty()) {
-                        recordService.clearRecords(List.of(recordId));
+                        recordService.clearRecord(recordId);
                         log.warn("Warn: record with empty oils were deleted");
                         event.fail(404);
                         return;
