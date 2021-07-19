@@ -16,3 +16,6 @@
 6. Download curl/[postman](https://www.postman.com/downloads/) etc to send requests.     
 > Go watch [API docs](https://github.com/ArtemGet/oil_service/blob/master/src/main/java/com/artemget/oil_service/docs/api/api_main.md) to get familiar with app's api.      
 >> default account with admin roots: nickname: admin, password: 1234     
+7. To stop app run command:
+> docker stop oil_service
+> docker stop pgdb

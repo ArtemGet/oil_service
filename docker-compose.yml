@@ -14,6 +14,7 @@ services:
       - ./init-db:/docker-entrypoint-initdb.d/
     environment:
       - POSTGRES_PASSWORD=postgres
+    container_name: pgdb
 
   oil_service:
     build:
@@ -22,4 +23,6 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    container_name: oil_service
