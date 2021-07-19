@@ -8,6 +8,7 @@ public class OilGetValidator implements HttpValidator {
     public void setEvent(RoutingContext event) {
         var recordId = event.pathParam("record");
         Preconditions.checkNotNull(recordId);
-        Long.parseLong(recordId);
+        var recordIdParsed = Long.parseLong(recordId);
+        Preconditions.checkArgument(recordIdParsed >= 0);
     }
 }

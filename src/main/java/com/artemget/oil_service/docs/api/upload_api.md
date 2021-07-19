@@ -1,5 +1,7 @@
 # Xlsx upload API    
 __Admin roots required!__
+      
+__This api consumes .xlsx file, parse and store oils to db, if succeed record will be created.__
 
 ## Request
 
