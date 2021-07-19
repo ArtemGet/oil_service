@@ -12,6 +12,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 
 public class ControllerModule extends AbstractModule {
+    //TODO: combine handlers by features
     @Provides
     @Singleton
     public Router setUpHandlers(Vertx vertx,
@@ -21,7 +22,8 @@ public class ControllerModule extends AbstractModule {
                                 UploadHandler uploadHandler,
                                 FinderHandler finderHandler,
                                 RecordGetHandler recordGetHandler,
-                                OilGetHandler oilGetHandler) {
+                                OilGetHandler oilGetHandler,
+                                RecordDeleteHandler recordDeleteHandler) {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create().setDeleteUploadedFilesOnEnd(true));
         router.route("/api/*").handler(JWTAuthHandler.create(jwtAuthProvider));
@@ -32,7 +34,8 @@ public class ControllerModule extends AbstractModule {
         router.route(HttpMethod.POST, "/api/oils").handler(uploadHandler);
         router.route(HttpMethod.GET, "/api/oils/:param/:limit").handler(finderHandler);
         router.route(HttpMethod.GET, "/api/oils/:record").handler(oilGetHandler);
-//        router.route(HttpMethod.DELETE, "/api/records/").handler(recordDeleteHandler);
+
+        router.route(HttpMethod.DELETE, "/api/records").handler(recordDeleteHandler);
         router.route(HttpMethod.GET, "/api/records").handler(recordGetHandler);
         return router;
     }

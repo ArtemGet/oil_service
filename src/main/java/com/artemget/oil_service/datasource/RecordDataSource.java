@@ -9,7 +9,7 @@ public interface RecordDataSource {
 
     void deleteRecordById(long recordId);
 
-    void deleteRecordList(List<Record> recordList);
+    void deleteRecordList(List<Long> recordList);
 
     List<Record> selectAllRecords();
 }

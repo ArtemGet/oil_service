@@ -28,8 +28,8 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     @Override
-    public void removeRecords(List<Record> recordIdList) {
-
+    public void removeRecords(List<Long> recordIdList) {
+recordDataSource.deleteRecordList(recordIdList);
     }
 
     @Override

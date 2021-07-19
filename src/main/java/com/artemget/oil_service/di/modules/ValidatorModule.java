@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 public class ValidatorModule extends AbstractModule {
+    //TODO: provide validator map
     @Provides
     @Named("registration_validator")
     @Singleton
@@ -40,6 +41,13 @@ public class ValidatorModule extends AbstractModule {
     @Singleton
     public HttpValidator provideOilGetValidator() {
         return new OilGetValidator();
+    }
+
+    @Provides
+    @Named("record_delete_validator")
+    @Singleton
+    public HttpValidator provideRecordDeleteValidator() {
+        return new RecordDeleteValidator();
     }
 
 }

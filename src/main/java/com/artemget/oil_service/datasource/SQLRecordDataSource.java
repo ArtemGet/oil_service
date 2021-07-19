@@ -50,13 +50,22 @@ public class SQLRecordDataSource implements RecordDataSource {
     }
 
     @Override
-    public void deleteRecordList(List<Record> recordList) {
-
+    public void deleteRecordList(List<Long> recordList) {
+        System.out.println(recordList.toString());
+        jdbi.withHandle(handle -> {
+            var batch = handle.prepareBatch("DELETE FROM oil_records WHERE record_id=?");
+            recordList.forEach(id -> {
+                batch.bind(0, id);
+                batch.add();
+            });
+            batch.execute();
+            return null;
+        });
     }
 
     @Override
     public List<Record> selectAllRecords() {
-       return jdbi.withHandle(handle ->
+        return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM oil_records")
                         .mapTo(Record.class)
                         .list());

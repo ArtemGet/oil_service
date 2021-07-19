@@ -10,7 +10,7 @@ public interface RecordRepository {
 
     void removeRecord(long recordId);
 
-    void removeRecords(List<Record> recordIdList);
+    void removeRecords(List<Long> recordIdList);
 
     List<Record> getAll();
 }

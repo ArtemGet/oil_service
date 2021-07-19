@@ -22,7 +22,7 @@ public class RecordService {
     }
 
     public void clearRecords(List<Long> recordList) {
-
+        recordRepository.removeRecords(recordList);
     }
 
     public void clearRecord(long recordList) {
