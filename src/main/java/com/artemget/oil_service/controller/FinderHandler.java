@@ -17,15 +17,15 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Singleton
-public class FinderController implements Handler<RoutingContext> {
+public class FinderHandler implements Handler<RoutingContext> {
     private final HttpValidator finderValidator;
     private final ExecutorProvider executorProvider;
     private final OilFinderService finderService;
 
     @Inject
-    public FinderController(@Named("finder_validator") HttpValidator finderValidator,
-                            ExecutorProvider executorProvider,
-                            OilFinderService oilUploadService) {
+    public FinderHandler(@Named("finder_validator") HttpValidator finderValidator,
+                         ExecutorProvider executorProvider,
+                         OilFinderService oilUploadService) {
         this.finderValidator = finderValidator;
         this.executorProvider = executorProvider;
         this.finderService = oilUploadService;
@@ -40,9 +40,9 @@ public class FinderController implements Handler<RoutingContext> {
             log.error("Error: bad request", e);
             return;
         }
-        String param = event.request().getParam("param");
-        double value = Double.parseDouble(event.request().getParam("value"));
-        long limit = Long.parseLong(event.request().getParam("limit"));
+        String param = event.pathParam("param");
+        double value = event.getBodyAsJson().getDouble("value");
+        long limit = Long.parseLong(event.pathParam("limit"));
 
         CompletableFuture.supplyAsync(() -> finderService.findOils(new OilRequest(param, value, limit)),
                 executorProvider.getExecutorService())

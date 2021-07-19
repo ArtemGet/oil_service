@@ -52,6 +52,9 @@ create table if not exists oil_records
 (
     record_id serial unique NOT NULL,
     user_name varchar(30)   NOT NULL,
+    inserted bigint NOT NULL,
+    corrupted bigint NOT NULL,
+    insertion_date TIMESTAMP NOT NULL,
     PRIMARY KEY (record_id),
     CONSTRAINT fk_user_name
         FOREIGN KEY (user_name)

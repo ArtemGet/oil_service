@@ -43,7 +43,7 @@ public class UploadControllerTest {
                         "file/xlsx");
 
         String token = login(TestUserProvider.getCorrectUser());
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/handbooks/handbook")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/oils")
                 .putHeader("Authorization", "Bearer " + "someInvalidToken")
                 .putHeader("Content-Type", "multipart/form-data")
                 .putHeader("Connection", "keep-alive")
@@ -64,7 +64,7 @@ public class UploadControllerTest {
                         "file/xlsx");
 
         String token = login(TestUserProvider.getCorrectUser());
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/handbooks/handbook")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/oils")
                 .putHeader("Authorization", "Bearer " + token)
                 .putHeader("Content-Type", "multipart/form-data")
                 .putHeader("Connection", "keep-alive")
@@ -96,7 +96,7 @@ public class UploadControllerTest {
                         "valid_single_page.xlsx",
                         "src/test/resources/xlsx_files/valid_single_page.xlsx",
                         "file/xlsx");
-        when(recordDataSource.insertRecord("admin"))
+        when(recordDataSource.insertRecord("admin",2, 0))
                 .thenReturn(1);
         doThrow(IllegalStateException.class)
                 .when(oilDataSource)
@@ -152,9 +152,8 @@ public class UploadControllerTest {
         when(userDataSource.selectUserByNameAndPassword(eq(user.getName()), eq(user.getPassword())))
                 .thenReturn(user);
 
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/user")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", String.format("/users/%s", user.getName()))
                 .sendJson(new JsonObject()
-                        .put("name", user.getName())
                         .put("password", user.getPassword()));
         while (!response.isComplete()) {
         }
@@ -166,7 +165,7 @@ public class UploadControllerTest {
     public Future<HttpResponse<Buffer>> sendRequest(WebClient client, MultipartForm data) {
         String token = login(TestUserProvider.getCorrectAdmin());
 
-        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/handbooks/handbook")
+        var response = client.request(HttpMethod.POST, 8080, "localhost", "/api/oils")
                 .putHeader("Authorization", "Bearer " + token)
                 .putHeader("Content-Type", "multipart/form-data")
                 .putHeader("Connection", "keep-alive")

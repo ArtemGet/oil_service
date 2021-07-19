@@ -8,13 +8,13 @@ public class FinderValidator implements HttpValidator {
     @Override
     public void setEvent(RoutingContext event) {
         //enough to prevent SQL injection
-        var param = OilParams.isDbValue(event.request().getParam("param"));
+        var param = OilParams.isDbValue(event.pathParam("param"));
         Preconditions.checkNotNull(param);
 
-        double value = Double.parseDouble(event.request().getParam("value"));
+        double value = event.getBodyAsJson().getDouble("value");
         Preconditions.checkArgument(value > 0);
 
-        long limit = Long.parseLong(event.request().getParam("limit"));
+        long limit = Long.parseLong(event.pathParam("limit"));
         Preconditions.checkArgument(limit > 0);
     }
 }

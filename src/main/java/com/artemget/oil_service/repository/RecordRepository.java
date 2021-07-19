@@ -1,9 +1,16 @@
 package com.artemget.oil_service.repository;
 
+import com.artemget.oil_service.model.Record;
 import com.artemget.oil_service.model.User;
 
-public interface RecordRepository {
-    int addRecord(User user);
+import java.util.List;
 
-    void removeRecord(int recordId);
+public interface RecordRepository {
+    int addRecord(User user, long inserted, long corrupted);
+
+    void removeRecord(long recordId);
+
+    void removeRecords(List<Long> recordIdList);
+
+    List<Record> getAll();
 }

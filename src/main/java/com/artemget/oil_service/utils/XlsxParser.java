@@ -1,6 +1,7 @@
 package com.artemget.oil_service.utils;
 
 import com.artemget.oil_service.model.Oil;
+import com.artemget.oil_service.model.OilData;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,7 +15,7 @@ import java.util.*;
 @UtilityClass
 public class XlsxParser {
 
-    public static List<Oil> parseXLSXFileToModel(String path) {
+    public static OilData parseXLSXFileToModel(String path) {
         XSSFWorkbook xssfWorkbook;
         try {
             xssfWorkbook = new XSSFWorkbook(path);
@@ -24,28 +25,41 @@ public class XlsxParser {
         return parseXSSFWorkbookToModel(xssfWorkbook);
     }
 
-    private static List<Oil> parseXSSFWorkbookToModel(XSSFWorkbook xssfWorkbook) {
+    private static OilData parseXSSFWorkbookToModel(XSSFWorkbook xssfWorkbook) {
         final List<Oil> oilList = new ArrayList<>();
+        long corrupted = 0;
+
         for (int i = 0; i < xssfWorkbook.getNumberOfSheets(); i++) {
-            oilList.addAll(parseXSSFSheetToModel(xssfWorkbook.getSheetAt(i)));
+            var oidData = parseXSSFSheetToModel(xssfWorkbook.getSheetAt(i));
+            oilList.addAll(oidData.getOilList());
+            corrupted += oidData.getCorrupted();
         }
-        return oilList;
+        return new OilData(oilList, corrupted);
     }
 
-    private static List<Oil> parseXSSFSheetToModel(XSSFSheet sheet) {
+    private static OilData parseXSSFSheetToModel(XSSFSheet sheet) {
         var valuePlaces = getOilParamPlaces(sheet);
         List<Oil> oilList = new ArrayList<>();
+        long corrupted = 0;
 
         if (valuePlaces.isEmpty()) {
-            return oilList;
+            return new OilData(List.of(), 0);
         }
-        for (var rowIterator = sheet.rowIterator(); rowIterator.hasNext(); ) {
+
+        var rowIterator = sheet.rowIterator();
+        //avoid first row with naming
+        rowIterator.next();
+
+        while (rowIterator.hasNext()) {
             var oil = collectRowData(rowIterator.next(), valuePlaces);
             if (oil != null) {
                 oilList.add(oil);
+            } else {
+                corrupted++;
             }
         }
-        return oilList;
+
+        return new OilData(oilList, corrupted);
     }
 
     //TODO add all row check

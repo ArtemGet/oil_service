@@ -13,4 +13,6 @@ public interface OilDataSource {
     void insertOilList(List<Oil> oilList, int recordId);
 
     List<Oil> selectOilList(OilRequest requestList);
+
+    List<Oil> selectOilListByRecordId(long recordId);
 }

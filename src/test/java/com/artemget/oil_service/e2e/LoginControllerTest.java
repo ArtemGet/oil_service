@@ -29,9 +29,8 @@ public class LoginControllerTest {
         when(userDataSource.selectUserByNameAndPassword(eq("admin"), eq("123")))
                 .thenReturn(correctAdmin);
 
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/user")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/admin")
                 .sendJson(new JsonObject()
-                        .put("name", "admin")
                         .put("password", "123"));
         while (!response.isComplete()) {
         }
@@ -51,9 +50,8 @@ public class LoginControllerTest {
         when(userDataSource.selectUserByNameAndPassword(eq("unregisteredUser"), eq("123")))
                 .thenThrow(IllegalStateException.class);
 
-        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/user")
+        var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/unregisteredUser")
                 .sendJson(new JsonObject()
-                        .put("name", "unregisteredUser")
                         .put("password", "123"));
         while (!response.isComplete()) {
         }
@@ -64,8 +62,7 @@ public class LoginControllerTest {
     public void shouldSendBadRequestOnFailingValidation() {
         var response = client.request(HttpMethod.GET, 8080, "localhost", "/users/user")
                 .sendJson(new JsonObject()
-                        .put("name", "")
-                        .put("password", "123"));
+                        .put("password", null));
         while (!response.isComplete()) {
         }
         assertEquals(400, response.result().statusCode());

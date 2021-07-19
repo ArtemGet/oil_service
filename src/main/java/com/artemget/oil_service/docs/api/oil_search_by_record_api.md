@@ -1,35 +1,31 @@
-# Oil search API
+# Oil search by record API
 
-__This api search for oil by one of the density20/density50/viscosity20/viscosity50 parameter,    
-the backend will find the closest oils limited by request__
+__Admin roots required!__
+
+__This api search for oil by record id__
 
 ## Request
 
 __Request format:__
 
 ```
-GET [domain]:[port]/api/oils/:param/:limit
+GET [domain]:[port]/api/oils/:record
 Authorization: Bearer some-valid.JWT.token
 Accept: application/json
 ```
 
 __Request parameter description:__
 
-| Field name    | Field value  | Possible values                                 |
-|:-------------:|:------------:|:-----------------------------------------------:|
-| param          | string      | density20, density50, viscosity20, viscosity50  |
-| value          | double      | only positive                                   |
-| limit          | long        | only positive                                   |
+| Field name    | Field value  | Possible values                |
+|:-------------:|:------------:|:------------------------------:|
+| record        | long         | only positive numbers allowed  |
 
 __Request example:__
 
 ```
-GET https://127.0.0.1:8080/api/oils/density20/1
+GET https://127.0.0.1:8080/api/oils/123
 Authorization: Bearer some-valid.JWT.token
 Accept: application/json
-{
-value = 0.123
-}
 ```
 
 ## Response
